@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 st.set_page_config(
-    page_title="Data Analysis Dashboard",
+    page_title="Air Quality Data Analysis Dashboard",
     layout="wide"
 )
 

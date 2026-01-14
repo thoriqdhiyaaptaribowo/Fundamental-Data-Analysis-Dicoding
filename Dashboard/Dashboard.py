@@ -89,6 +89,9 @@ if page == "Overview":
     st.subheader("Data Sample")
     st.dataframe(df.head(10))
 
+    st.subheader("Statistical Summary")
+    st.dataframe(df[['Average_CO', 'Average_SO2']].describe())
+
 # CO Analysis Page
 elif page == "CO Analysis":
     st.header("Carbon Monoxide (CO) Analysis")

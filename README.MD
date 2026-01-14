@@ -18,6 +18,6 @@ streamlit run Dashboard.py
 - Contain the chart for average CO consentration per station and monthly CO trend per station
 - The statistic also contain the highest and lowest CO concentration as well the stations
 
-### SO Analysis
+### SO2 Analysis
 - Contain the chart for average SO concentration per station and monthly SO trend per station
 - The statistic also contain the highest and lowest SO concentration as well as the stations

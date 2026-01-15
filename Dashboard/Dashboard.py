@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 st.set_page_config(
     page_title="Air Quality Data Analysis Dashboard",
@@ -17,15 +18,19 @@ def load_data():
     return data
 
 # Chart creation functions
-def create_bar_chart(data, station_col, value_col, title, color, units="µg/m³"):
+def create_bar_chart(data, x_col, y_col, title, units="µg/m³"):
+    """Create a bar chart similar to notebook style - by month with hue"""
     fig, ax = plt.subplots(figsize=(12, 6))
-    bars = ax.barh(data[station_col], data[value_col], color=color)
-    ax.set_xlabel(f"Average {value_col.replace('_', ' ')} Concentration ({units})")
-    ax.set_ylabel("Station")
-    ax.set_title(title)
+    sns.barplot(data=data, x=x_col, y=y_col, hue=x_col, palette='viridis', errorbar=None, ax=ax)
     
-    for i, v in enumerate(data[value_col]):
-        ax.text(v + (max(data[value_col]) * 0.01), i, f'{v:.2f}', va='center')
+    for container in ax.containers:
+        ax.bar_label(container, fmt='%.2f') # type: ignore
+    
+    ax.set_xlabel(x_col.capitalize())
+    ax.set_ylabel(f"{y_col.replace('_', ' ')} Concentration ({units})")
+    ax.set_title(title)
+    ax.legend([])
+    ax.grid(True, alpha=0.3)
     
     plt.tight_layout()
     return fig
@@ -48,7 +53,7 @@ def create_line_chart(df, x_col, y_col, hue_col, title, ylabel, units="µg/m³")
     plt.tight_layout()
     return fig
 
-def display_pollutant_stats(data, pollutant_col, station_col):
+def display_pollutant_stats(data, pollutant_col, month_col):
     highest_idx = data[pollutant_col].idxmax()
     lowest_idx = data[pollutant_col].idxmin()
     
@@ -58,14 +63,14 @@ def display_pollutant_stats(data, pollutant_col, station_col):
         st.metric(
             "Highest Concentration",
             f"{data.loc[highest_idx, pollutant_col]:.2f} µg/m³",
-            f"Station: {data.loc[highest_idx, station_col]}"
+            f"Month: {data.loc[highest_idx, month_col]}"
         )
     
     with col2:
         st.metric(
             "Lowest Concentration",
             f"{data.loc[lowest_idx, pollutant_col]:.2f} µg/m³",
-            f"Station: {data.loc[lowest_idx, station_col]}"
+            f"Month: {data.loc[lowest_idx, month_col]}"
         )
 
 df = load_data()
@@ -96,28 +101,22 @@ if page == "Overview":
 elif page == "CO Analysis":
     st.header("Carbon Monoxide (CO) Analysis")
     
-    # CO by Station
-    df_co = df.groupby("station").agg(
-        Average_CO=('Average_CO', 'mean')
-    ).reset_index().sort_values('Average_CO', ascending=False)
-    
-    col1, col2 = st.columns(2)
+    col1, col2, = st.columns(2)
     
     with col1:
-        st.subheader("Average CO per Station")
+        st.subheader("Average CO Concentration per Month")
         fig = create_bar_chart(
-            df_co, 
-            'station', 
+            df, 
+            'month', 
             'Average_CO',
-            "Average CO Concentration by Station",
-            'steelblue'
+            "CO Concentration per Month"
         )
         st.pyplot(fig)
-    
+   
     with col2:
         st.subheader("CO Statistics")
-        display_pollutant_stats(df_co, 'Average_CO', 'station')
-    
+        display_pollutant_stats(df, 'Average_CO', 'month') 
+
     st.subheader("Monthly CO Trend per Station")
     fig = create_line_chart(
         df,
@@ -133,27 +132,21 @@ elif page == "CO Analysis":
 elif page == "SO2 Analysis":
     st.header("Sulfur Dioxide (SO2) Analysis")
     
-    # SO2 by Station
-    df_so2 = df.groupby("station").agg(
-        Average_SO2=('Average_SO2', 'mean')
-    ).reset_index().sort_values('Average_SO2', ascending=False)
-    
     col1, col2 = st.columns(2)
-    
+
     with col1:
-        st.subheader("Average SO2 per Station")
+        st.subheader("Average SO2 Concentration per Month")
         fig = create_bar_chart(
-            df_so2,
-            'station',
+            df,
+           'month',
             'Average_SO2',
-            "Average SO2 Concentration by Station",
-            'coral'
+            "SO2 Concentration per Month"
         )
         st.pyplot(fig)
     
     with col2:
         st.subheader("SO2 Statistics")
-        display_pollutant_stats(df_so2, 'Average_SO2', 'station')
+        display_pollutant_stats(df, 'Average_SO2', 'month')
     
     st.subheader("Monthly SO2 Trend per Station")
     fig = create_line_chart(

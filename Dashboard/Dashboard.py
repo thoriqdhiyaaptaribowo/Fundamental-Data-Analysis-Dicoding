@@ -21,7 +21,7 @@ def load_data():
 def create_bar_chart(data, x_col, y_col, title, units="µg/m³"):
     """Create a bar chart similar to notebook style - by month with hue"""
     fig, ax = plt.subplots(figsize=(12, 6))
-    sns.barplot(data=data, x=x_col, y=y_col, hue=x_col, palette='viridis', errorbar=None, ax=ax)
+    sns.barplot(data=data, x=x_col, y=y_col, color='skyblue', errorbar=None, ax=ax)
     
     for container in ax.containers:
         ax.bar_label(container, fmt='%.2f') # type: ignore
@@ -75,27 +75,81 @@ def display_pollutant_stats(data, pollutant_col, month_col):
 
 df = load_data()
 
-# Sidebar navigation
+# Sidebar navigation and filters
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Select Analysis", ["Overview", "CO Analysis", "SO2 Analysis"])
+
+# Dynamic Filtering
+st.sidebar.markdown("---")
+st.sidebar.title("Filters")
+
+# Initialize session state for filters
+if 'filters' not in st.session_state:
+    st.session_state.filters = {
+        'stations': [],
+        'months': []
+    }
+
+# Station filter
+all_stations = sorted(df['station'].unique().tolist())
+selected_stations = st.sidebar.multiselect(
+    "Select Stations:",
+    all_stations,
+    default=all_stations,
+    key="station_filter"
+)
+
+# Month range filter
+month_range = st.sidebar.slider(
+    "Select Month Range:",
+    min_value=int(df['month'].min()),
+    max_value=int(df['month'].max()),
+    value=(int(df['month'].min()), int(df['month'].max())),
+    key="month_filter"
+)
+
+# Apply filters
+filtered_df = df[
+    (df['station'].isin(selected_stations)) &
+    (df['month'] >= month_range[0]) &
+    (df['month'] <= month_range[1])
+]
+
+# Display filter status
+if len(filtered_df) == 0:
+    st.warning("No data matches the selected filters. Please adjust your selection.")
+    st.stop()
+
+# Show active filters
+with st.sidebar.expander("Active Filters"):
+    st.write(f"**Stations:** {len(selected_stations)} selected")
+    st.write(f"**Months:** {month_range[0]} - {month_range[1]}")
+    st.write(f"**Rows:** {len(filtered_df)} / {len(df)}")
+    
+    if st.button("Reset Filters"):
+        st.session_state.station_filter = all_stations
+        st.session_state.month_filter = (int(df['month'].min()), int(df['month'].max()))
+        st.rerun()
 
 # Overview Page
 if page == "Overview":
     st.header("Dataset Overview")
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        st.metric("Total Records", len(df))
+        st.metric("Total Records", len(filtered_df))
     with col2:
-        st.metric("Unique Stations", df['station'].nunique())
+        st.metric("Unique Stations", filtered_df['station'].nunique())
     with col3:
-        st.metric("Months Covered", df['month'].nunique())
+        st.metric("Months Covered", filtered_df['month'].nunique())
+    with col4:
+        st.metric("Filtered From", f"{len(df)} total")
     
     st.subheader("Data Sample")
-    st.dataframe(df.head(10))
+    st.dataframe(filtered_df.head(10))
 
     st.subheader("Statistical Summary")
-    st.dataframe(df[['Average_CO', 'Average_SO2']].describe())
+    st.dataframe(filtered_df[['Average_CO', 'Average_SO2']].describe())
 
 # CO Analysis Page
 elif page == "CO Analysis":
@@ -106,7 +160,7 @@ elif page == "CO Analysis":
     with col1:
         st.subheader("Average CO Concentration per Month")
         fig = create_bar_chart(
-            df, 
+            filtered_df, 
             'month', 
             'Average_CO',
             "CO Concentration per Month"
@@ -115,11 +169,11 @@ elif page == "CO Analysis":
    
     with col2:
         st.subheader("CO Statistics")
-        display_pollutant_stats(df, 'Average_CO', 'month') 
+        display_pollutant_stats(filtered_df, 'Average_CO', 'month') 
 
     st.subheader("Monthly CO Trend per Station")
     fig = create_line_chart(
-        df,
+        filtered_df,
         'month',
         'Average_CO',
         'station',
@@ -137,7 +191,7 @@ elif page == "SO2 Analysis":
     with col1:
         st.subheader("Average SO2 Concentration per Month")
         fig = create_bar_chart(
-            df,
+            filtered_df,
            'month',
             'Average_SO2',
             "SO2 Concentration per Month"
@@ -146,11 +200,11 @@ elif page == "SO2 Analysis":
     
     with col2:
         st.subheader("SO2 Statistics")
-        display_pollutant_stats(df, 'Average_SO2', 'month')
+        display_pollutant_stats(filtered_df, 'Average_SO2', 'month')
     
     st.subheader("Monthly SO2 Trend per Station")
     fig = create_line_chart(
-        df,
+        filtered_df,
         'month',
         'Average_SO2',
         'station',

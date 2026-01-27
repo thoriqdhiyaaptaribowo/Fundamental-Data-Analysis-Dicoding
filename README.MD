@@ -24,3 +24,7 @@ streamlit run Dashboard.py
 ### SO2 Analysis
 - Contains the charts for average SO2 (Sulfur Dioxide) concentration per month and monthly SO2 trend per station.
 - The statistic also contain the highest and lowest SO2 concentration as well as the month.
+
+### Filters
+- Contain the station selection and the range of month
+- User can select which station to be displayed (Default is all of them) and the time range in month (default is 12 month)

@@ -21,7 +21,7 @@ def load_data():
 def create_bar_chart(data, x_col, y_col, title, units="µg/m³"):
     """Create a bar chart similar to notebook style - by month with hue"""
     fig, ax = plt.subplots(figsize=(12, 6))
-    sns.barplot(data=data, x=x_col, y=y_col, color='skyblue', errorbar=None, ax=ax)
+    sns.barplot(data=data, x=x_col, y=y_col, color='darkblue', errorbar=None, ax=ax)
     
     for container in ax.containers:
         ax.bar_label(container, fmt='%.2f') # type: ignore

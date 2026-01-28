@@ -119,18 +119,7 @@ filtered_df = df[
 if len(filtered_df) == 0:
     st.warning("No data matches the selected filters. Please adjust your selection.")
     st.stop()
-
-# Show active filters
-with st.sidebar.expander("Active Filters"):
-    st.write(f"**Stations:** {len(selected_stations)} selected")
-    st.write(f"**Months:** {month_range[0]} - {month_range[1]}")
-    st.write(f"**Rows:** {len(filtered_df)} / {len(df)}")
     
-    if st.button("Reset Filters"):
-        st.session_state.station_filter = all_stations
-        st.session_state.month_filter = (int(df['month'].min()), int(df['month'].max()))
-        st.rerun()
-
 # Overview Page
 if page == "Overview":
     st.header("Dataset Overview")
@@ -151,7 +140,7 @@ if page == "Overview":
     st.subheader("Statistical Summary")
     st.dataframe(filtered_df[['Average_CO', 'Average_SO2']].describe())
 
-# CO Analysis Page
+# CO Analysis Page 
 elif page == "CO Analysis":
     st.header("Carbon Monoxide (CO) Analysis")
     
@@ -182,7 +171,13 @@ elif page == "CO Analysis":
     )
     st.pyplot(fig)
 
-# SO2 Analysis Page
+    st.subheader("Explanation:")
+    st.markdown("""
+- The highest monthly concecntration of carbon monoxide is recorded in the month of November with an average of 997.79 ug/m^3)
+- The lowest monthly concentration of carbon monoxide is recorded in the month of Mei with an average of 696.62 ug/m^3")
+- Theres a precieved trend regarding the carbon monoxide cycle which peaked in the winter and lowest at the summer""")
+
+# SO2 Analysis Page 
 elif page == "SO2 Analysis":
     st.header("Sulfur Dioxide (SO2) Analysis")
     
@@ -212,6 +207,12 @@ elif page == "SO2 Analysis":
         "Average SO2 Concentration"
     )
     st.pyplot(fig)
+
+    st.subheader("Explanation")
+    st.markdown("""
+- The highest concentration of sulfur dioxide is recorded in the month of January with an average of 15.90 ug/m^3)
+- The lowest concecntration of sulfur dioxide is recorded in the month of August with an average of 4.21 ug/m^3
+- Theres a precieved trend regarding the carbon monoxide cycle which peaked in the winter and lowest at the summer""")
 
 st.markdown("---")
 st.markdown("**Data Source:** Air Quality Dataset (2013-2017)")

@@ -177,6 +177,10 @@ elif page == "CO Analysis":
 - The lowest monthly concentration of carbon monoxide is recorded in the month of Mei with an average of 696.62 ug/m^3")
 - Theres a precieved trend regarding the carbon monoxide cycle which peaked in the winter and lowest at the summer""")
 
+    st.subheader("Implication")
+    st.markdown("""
+The rise of Carbon Monoxide during winter indicate a significant reduction in air quality. THis could be resulted due to increased use of fossil fuel (Possibly for heating purposes)""")
+
 # SO2 Analysis Page 
 elif page == "SO2 Analysis":
     st.header("Sulfur Dioxide (SO2) Analysis")
@@ -213,6 +217,10 @@ elif page == "SO2 Analysis":
 - The highest concentration of sulfur dioxide is recorded in the month of January with an average of 15.90 ug/m^3)
 - The lowest concecntration of sulfur dioxide is recorded in the month of August with an average of 4.21 ug/m^3
 - Theres a precieved trend regarding the carbon monoxide cycle which peaked in the winter and lowest at the summer""")
+
+    st.subheader("Implication")
+    st.markdown(""" 
+The trend of Sulfur Dioxide ammount in the area shows the industrial actvity in the area. the higher the ammount of Sulfur Dioxide in the area could mean an increase of industrial activity in the area and vice versa""")
 
 st.markdown("---")
 st.markdown("**Data Source:** Air Quality Dataset (2013-2017)")

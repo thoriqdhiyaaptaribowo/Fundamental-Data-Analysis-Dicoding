@@ -216,7 +216,7 @@ elif page == "SO2 Analysis":
     st.markdown("""
 - The highest concentration of sulfur dioxide is recorded in the month of January with an average of 15.90 ug/m^3)
 - The lowest concecntration of sulfur dioxide is recorded in the month of August with an average of 4.21 ug/m^3
-- Theres a precieved trend regarding the carbon monoxide cycle which peaked in the winter and lowest at the summer""")
+- Theres a precieved trend regarding the sulfur dioxide cycle which peaked in the winter and lowest at the summer""")
 
     st.subheader("Implication")
     st.markdown(""" 

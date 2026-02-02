@@ -246,7 +246,7 @@ elif page == "Conclusion":
     """)
     
     st.subheader("2. Findings on Sulfur Dioxide (SO₂) Concentration")
-    display_pollutant_stats(filtered_df, 'Average_CO', 'month')
+    display_pollutant_stats(filtered_df, 'Average_SO2', 'month')
     
     st.markdown("""
 **Implication:** Sharp SO₂ fluctuation (78% difference) reveals strong dependence on seasonal variations and industrial activity, with increased energy consumption being the main driver during winter.

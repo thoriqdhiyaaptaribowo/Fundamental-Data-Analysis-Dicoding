@@ -57,16 +57,20 @@ def display_pollutant_stats(data, pollutant_col, month_col):
     
     col1, col2 = st.columns(2)
     
+    pollutant_name = pollutant_col.replace('_', ' ').replace('Average ', '')
+    
     with col1:
         st.metric(
+            f"Highest {pollutant_name}",
             f"{data.loc[highest_idx, pollutant_col]:.2f} µg/m³",
-            f"Month: {data.loc[highest_idx, month_col]}"
+            f"Month {int(data.loc[highest_idx, month_col])}"
         )
     
     with col2:
         st.metric(
+            f"Lowest {pollutant_name}",
             f"{data.loc[lowest_idx, pollutant_col]:.2f} µg/m³",
-            f"Month: {data.loc[lowest_idx, month_col]}"
+            f"Month {int(data.loc[lowest_idx, month_col])}"
         )
 
 df = load_data()

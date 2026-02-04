@@ -177,7 +177,7 @@ elif page == "CO Analysis":
 - Highest CO concentration occurs in November with 997.79 µg/m³, indicating the worst air pollution when entering winter
 - Lowest CO concentration is recorded in May with 696.62 µg/m³, meaning air quality is relatively better in summer
 - CO concentration shows a gradual increase from May to November, with acceleration particularly in the last quarter of the year (October-December)
-- This seasonal pattern is consistent across all monitoring stations, proving that meteorological conditions (temperature, humidity, atmospheric stability) are the dominant factor
+- The seasonal patern also shows that there's a precieved volatility between each station showing that CO emision is sensitive to the variation of fossil fuel emmition
 """)
 
     st.subheader("Implication:")
@@ -225,6 +225,7 @@ elif page == "SO2 Analysis":
 - SO₂ concentration peaks in January with a value of 15.90 µg/m³, slightly later than CO which peaks in November
 - Lowest SO₂ concentration occurs in August at 4.21 µg/m³, reflecting the best air quality period in the year
 - SO₂ shows a sharper seasonal pattern compared to CO, with fluctuation reaching 78% between highest and lowest values
+- The Patern between each station also shows that SO₂ seasonal patern is less volatile compared to CO seasonal patern suggesting that there's a permanent emmision source that's independent from the average household emision
 - SO₂ increase from September to January is related to intensification of fossil fuel use for space heating and increased industrial activity in winter
 """)
 
@@ -240,71 +241,65 @@ Sharp SO₂ fluctuation (78% difference) reveals strong dependence on seasonal v
 elif page == "Conclusion":
     st.header("Conclusion")
     
-    st.subheader("1. Findings on Carbon Monoxide (CO) Concentration")
-    display_pollutant_stats(filtered_df, 'Average_CO', 'month') 
+    st.subheader("1. Findings on Average Carbon Monoxide (CO) and Sulfur Dioxide (SO₂) Concentration per Month and it's Implication")
+    col1, col2 = st.columns(2)
     
+    with col1:
+        st.subheader("Average CO per Station")
+        display_pollutant_stats(filtered_df, 'Average_CO', 'month') 
+    with col2:
+        st.subheader("Average SO₂ per Station")
+        display_pollutant_stats(filtered_df, 'Average_SO2', 'month')
+
     st.markdown("""
-**Implication:** Dramatic increase in CO concentration during winter reflects serious air quality degradation, triggered by:
-- Intensification of fossil fuel use
-- Meteorological conditions that hinder pollutant dispersion (thermal inversion, high humidity, weak winds)
+**Implication:**
+- Both polutant shows an U curve that's consistent with the peak from September to February (winter) and valley in April to August (summer)
+- The periode from September to February indentified as critical zone with polutant concentration at it's highest which is a health risk for compromized individual (elderly, children, people with respiratory issue) 
+- The increase in pollutant concentrations in winter is caused by the convergence of two factors: 
+    1. Intensification of the use of fossil fuels for heating and energy needs, and 
+    2. Adverse meteorological conditions that inhibit the spread of pollutants (thermal inversion, high humidity, low wind speed). 
+- The strong temporal correlation between the two pollutants indicates the same dominant emission source, namely the combustion of fossil fuels from the transportation and energy sectors.
     """)
     
-    st.subheader("2. Findings on Sulfur Dioxide (SO₂) Concentration")
-    display_pollutant_stats(filtered_df, 'Average_SO2', 'month')
+    st.subheader("2. Findings on the Movement of Carbon Monoxide (CO) and Sulfur Dioxide (SO₂) Concentration of Each Station per Month and it's Implication to the Air Quality Cycle")
     
     st.markdown("""
-**Implication:** Sharp SO₂ fluctuation (78% difference) reveals strong dependence on seasonal variations and industrial activity, with increased energy consumption being the main driver during winter.
+**Implication:** 
+- Universal seasonal patterns demonstrate that regional meteorological factors are the primary determinants of pollutant concentration fluctuations, overriding local variations and specific emission sources.
+- The presence of stations with high baseline concentrations suggests the presence of significant local, permanent emission sources (e.g., traffic centers, industrial zones, or topography that discourages dispersion).
+- Synchronized CO2 and SO2 movements confirm that mitigation strategies should target common emission sources, focusing on the transportation and energy sectors.
+- Variations between stations emphasize that despite universal trends, local characteristics and specific emission sources still play a significant role in determining air quality in each region.
     """)
     
-    st.subheader("3. Seasonal and Temporal Patterns")
+    st.subheader("3. Final Conclution")
     st.markdown("""
-- **Both pollutants show consistent seasonal patterns:** peaks during winter (October-February) and lowest during summer (April-September)
-- **September to February period:** represents a critical interval with pollutant concentrations consistently exceeding annual average
-- **Universal pattern across all 12 stations:** proves that global meteorological factors are the primary determinant, although intensity varies according to local conditions
+This dataset demonstrates that air quality in the study area experiences **extreme and structured seasonal fluctuations**, rather than linear degradation. The winter period (September-February) consistently constitutes a critical zone with double the concentration of pollutants compared to summer. While global fluctuations are driven by regional meteorological factors, differences between stations indicate a significant role for local emission sources.
     """)
     
-    st.subheader("4. Inter-Station Variations")
-    st.markdown("""
-- Some stations show significantly higher baseline concentrations, indicating strong local emission sources
-- This variability emphasizes the importance of tailored intervention approaches adapted to specific characteristics of each region
-    """)
-    
-    st.subheader("5. Policy Recommendations")
+    st.subheader("4. Policy Recommendations")
     
     col1, col2 = st.columns(2)
     
     with col1:
         st.markdown("""
-**Intensive Monitoring**
-- Increase frequency and scope of monitoring
-- Focus on September-February period
+**Seasonal Management:**
+-> Implement stricter control protocols specifically in September-February with industrial emission restrictions, traffic restrictions, and increased monitoring.
 
-**Emission Control**
-- Implement stricter traffic restrictions during winter
-- Measurable industrial emission reduction
+**Station-Based Intervention**
+-> Identify and manage local emission sources at stations with consistently high concentrations through environmental audits and more specific regulations. 
+
+**Public Communication**
+-> Develop an educational campaigns on respiratory health risks with special emphasis on the winter period and vulnerable groups
         """)
     
     with col2:
         st.markdown("""
-**Public Awareness**
-- Education campaign on respiratory health risks
-- Real-time pollutant concentration information
+**Early Warning System**
+-> Develop an early warning system that use the seasonal cycle to give a public alert during critical periods
 
 **Further Research**
-- Deeper investigation into local emission sources
-- Focus on stations with high concentrations
+-> In-depth investigation of the correlation between local meteorological characteristics (temperature, humidity, wind speed, pressure) with pollutant concentrations to improve prediction accuracy
         """)
-    
-    st.markdown("---")
-    
-    st.subheader("Summary of Advanced Analysis")
-    st.markdown("""
-Trend analysis per station shows:
-- **Significant inter-station differences** prove that air pollution control strategies must be tailored to local conditions of each region
-- **Certain stations** consistently show higher pollutant concentrations throughout the year, indicating the presence of permanent emission sources in the area
-- **Although universal seasonal patterns** are evident across all stations (peaks October-January), fluctuation intensity varies according to geographic characteristics and location-specific emission sources
-    """)
-
 
 st.markdown("---")
 st.markdown("**Data Source:** Air Quality Dataset (2013-2017)")

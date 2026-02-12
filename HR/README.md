@@ -3,23 +3,26 @@
 ## Business Understanding
 
 Jelaskan latar belakang bisnis dari perushaan tersebut.
+Perushaan merupakan perusahaan yang bergerak pada bidang riset dan pengembangan (Research and Development). Terdapat tiga divisi pada perushaan tersebut, yaitu Sales, R&D, dan HR.
 
 ### Permasalahan Bisnis
 
-Tuliskan seluruh permasalahan bisnis yang akan diselesaikan.
+1. Faktor-faktor apa sajakah yang paling signifikan mempengaruhi keputusan pekerja untuk meninggalkan perusahaan?
+2. Strategi retensi karyawan apa saja yang dapat diimplementasikan perusahaan untuk mengurangi tingkat atrisi dan meningkatkan durabilitas tenaga kerja?
 
 ### Cakupan Proyek
 
 Tuliskan cakupan proyek yang akan dikerjakan.
+Cakupan dari proyek ini adalah untuk mencari informasi terkait faktor-faktor yang mempengaruhi atrisi pekerja dengan melakukan serta mengetahui tindakan apa yang dapat dilakukan untuk mempertahankan karyawannya dengan melakukan analisis korelasi dan membuat model machine learning
 
 ### Persiapan
 
-Sumber data: ....
+Sumber data: 'employee_data.csv'
 
 Setup environment:
 
 ```
-
+python
 ```
 
 ## Business Dashboard

@@ -89,44 +89,108 @@ def get_model_info() -> Dict:
 
 # Example usage
 if __name__ == "__main__":
+    import os
     
     print("=" * 60)
     print("EMPLOYEE ATTRITION PREDICTION MODEL")
     print("=" * 60)
     
-    # Example 1: Single prediction
-    print("\n1. SINGLE EMPLOYEE PREDICTION")
-    print("-" * 60)
-    
-    employee = {
-        'MonthlyIncome': 5000,
-        'Department': 'Sales',
-        'EnvironmentSatisfaction': 3,
-        'JobSatisfaction': 2,
-        'StockOptionLevel': 1,
-        'WorkLifeBalance': 2,
-        'NumCompaniesWorked': 2,
-        'YearsInCurrentRole': 5,
-        'PercentSalaryHike': 13,
-        'YearsWithCurrManager': 3
-    }
-    
-    result = predict_single(employee)
-    print(f"Employee Data: {employee}")
-    print(f"\nPrediction: {result['prediction']}")
-    print(f"Probability of Attrition: {result['probability_attrition']:.4f}")
-    print(f"Probability of Staying: {result['probability_no_attrition']:.4f}")
-    
-    # Example 2: Batch prediction from CSV
-    print("\n\n2. BATCH PREDICTION FROM CSV")
-    print("-" * 60)
-    print("To predict multiple employees, use:")
-    print("results = predict_batch('input_file.csv')")
-    print("results.to_csv('predictions.csv', index=False)")
-    
-    # Example 3: Model information
-    print("\n\n3. MODEL INFORMATION")
-    print("-" * 60)
-    info = get_model_info()
-    for key, value in info.items():
-        print(f"{key}: {value}")
+    while True:
+        print("\nMENU:")
+        print("1. Single Employee Prediction")
+        print("2. Batch Prediction from CSV")
+        print("3. Model Information")
+        print("4. Exit")
+        
+        choice = input("\nEnter your choice (1-4): ").strip()
+        
+        if choice == '1':
+            # Single prediction
+            print("\n1. SINGLE EMPLOYEE PREDICTION")
+            print("-" * 60)
+            
+            try:
+                employee = {}
+                
+                # Numeric inputs
+                employee['MonthlyIncome'] = float(input("Enter Monthly Income: "))
+                
+                # Department input with validation
+                while True:
+                    dept = input("Enter Department (Sales/R&D/HR): ").strip()
+                    if dept in ['Sales', 'R&D', 'HR']:
+                        employee['Department'] = dept
+                        break
+                    print("Invalid department. Please enter Sales, R&D, or HR.")
+                
+                employee['EnvironmentSatisfaction'] = float(input("Enter Environment Satisfaction (1-4): "))
+                employee['JobSatisfaction'] = float(input("Enter Job Satisfaction (1-4): "))
+                employee['StockOptionLevel'] = float(input("Enter Stock Option Level: "))
+                employee['WorkLifeBalance'] = float(input("Enter Work Life Balance (1-4): "))
+                employee['NumCompaniesWorked'] = float(input("Enter Number of Companies Worked: "))
+                employee['YearsInCurrentRole'] = float(input("Enter Years in Current Role: "))
+                employee['PercentSalaryHike'] = float(input("Enter Percent Salary Hike: "))
+                employee['YearsWithCurrManager'] = float(input("Enter Years with Current Manager: "))
+                
+                result = predict_single(employee)
+                print(f"\nEmployee Data: {employee}")
+                print(f"\nPrediction: {result['prediction']}")
+                print(f"Probability of Attrition: {result['probability_attrition']:.4f}")
+                print(f"Probability of Staying: {result['probability_no_attrition']:.4f}")
+            
+            except ValueError as e:
+                print(f"Error: Invalid input. Please enter valid numbers.")
+            except Exception as e:
+                print(f"Error: {e}")
+        
+        elif choice == '2':
+            # Batch prediction from CSV
+            print("\n2. BATCH PREDICTION FROM CSV")
+            print("-" * 60)
+            
+            while True:
+                csv_file = input("Enter CSV file path (e.g., sample.csv): ").strip()
+                
+                if not csv_file:
+                    print("Error: File path cannot be empty.")
+                    continue
+                
+                if not os.path.exists(csv_file):
+                    print(f"Error: File '{csv_file}' not found.")
+                    continue
+                
+                try:
+                    results = predict_batch(csv_file)
+                    print(f"\nSuccessfully processed {len(results)} records.")
+                    print("\nFirst few records with predictions:")
+                    print(results.head())
+                    
+                    # Option to save results
+                    save_option = input("\nSave predictions to CSV? (y/n): ").strip().lower()
+                    if save_option == 'y':
+                        output_file = input("Enter output file name (default: predictions.csv): ").strip()
+                        if not output_file:
+                            output_file = "predictions.csv"
+                        results.to_csv(output_file, index=False)
+                        print(f"Predictions saved to '{output_file}'")
+                    break
+                
+                except ValueError as e:
+                    print(f"Error: {e}")
+                except Exception as e:
+                    print(f"Error processing file: {e}")
+        
+        elif choice == '3':
+            # Model information
+            print("\n3. MODEL INFORMATION")
+            print("-" * 60)
+            info = get_model_info()
+            for key, value in info.items():
+                print(f"{key}: {value}")
+        
+        elif choice == '4':
+            print("Exiting...")
+            break
+        
+        else:
+            print("Invalid choice. Please enter 1-4.")

@@ -2,8 +2,11 @@
 
 ## Business Understanding
 
-Jelaskan latar belakang bisnis dari perushaan tersebut.
-Perushaan merupakan perusahaan yang bergerak pada bidang riset dan pengembangan (Research and Development). Terdapat tiga divisi pada perushaan tersebut, yaitu Sales, R&D, dan HR.
+Jaya Jaya Maju merupakan salah satu perusahaan multinasional yang telah berdiri sejak tahun 2000. Ia memiliki lebih dari 1000 karyawan yang tersebar di seluruh penjuru negeri. 
+
+Walaupun telah menjadi menjadi perusahaan yang cukup besar, Jaya Jaya Maju masih cukup kesulitan dalam mengelola karyawan. Hal ini berimbas tingginya attrition rate (rasio jumlah karyawan yang keluar dengan total karyawan keseluruhan) hingga lebih dari 10%.
+
+Untuk mencegah hal ini semakin parah, manajer departemen HR ingin meminta bantuan Anda mengidentifikasi berbagai faktor yang mempengaruhi tingginya attrition rate tersebut. Selain itu, ia juga meminta Anda untuk membuat business dashboard untuk membantunya memonitori berbagai faktor tersebut. Selain itu, mereka juga telah menyediakan dataset yang dapat Anda unduh melalui tautan berikut: Jaya Jaya Maju.
 
 ### Permasalahan Bisnis
 
@@ -12,7 +15,6 @@ Perushaan merupakan perusahaan yang bergerak pada bidang riset dan pengembangan 
 
 ### Cakupan Proyek
 
-Tuliskan cakupan proyek yang akan dikerjakan.
 Cakupan dari proyek ini adalah untuk mencari informasi terkait faktor-faktor yang mempengaruhi atrisi pekerja dengan melakukan serta mengetahui tindakan apa yang dapat dilakukan untuk mempertahankan karyawannya dengan melakukan analisis korelasi dan membuat model machine learning
 
 ### Persiapan
@@ -21,13 +23,55 @@ Sumber data: 'employee_data.csv'
 
 Setup environment:
 
-```
-python
+Disarankan menggunakan Python 3.10 atau lebih baru. Ikuti langkah berikut untuk menyiapkan lingkungan pengembangan:
+
+1. Buat dan aktifkan virtual environment (menggunakan venv):
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
-## Business Dashboard
+Atau jika menggunakan conda:
+
+```bash
+conda create -n hr-env python=3.10 -y
+conda activate hr-env
+```
+
+2. Perbarui pip dan instal dependensi:
+
+```bash
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+3. (Opsional) Untuk membuka notebook interaktif:
+
+```bash
+pip install jupyterlab   # atau pip install notebook
+jupyter lab             # atau jupyter notebook
+```
+
+4. Menjalankan skrip inference atau analisis:
+
+```bash
+python inference.py
+# atau buka `notebook.ipynb` di Jupyter untuk eksplorasi interaktif
+```
+
+Catatan:
+- Pastikan file dataset (`employee_data.csv`) berada pada direktori yang sesuai (sama dengan repository), atau sesuaikan path di dalam skrip/notebook.
+- Jika mengalami masalah versi paket, cek `requirements.txt` dan gunakan Python versi yang kompatibel.
+
+
+## Business Dashboards
 
 Jelaskan tentang business dashboard yang telah dibuat. Jika ada, sertakan juga link untuk mengakses dashboard tersebut.
+Business dashboard memberi gambaran terkait faktor faktor yang memppengaruhi atrisi pekerja perusahaan. Faktor faktor tersebut teridi dari pendapatan per bulan, departemen, kepuasan terhadap lingkungan, kepuasan terhadap pekerjaan, pengalaman kerja/banyak perusahaan yang pernah memperkerjakan karyawan, level opsi stok karyawan, lama karyawan di posisi kerja-nya, persen peningkatan gaji, kepuasan terhadap work-life balance, dan lama bekerja dengan manajer yang sama.
+
+Berikut merupakan link untuk mengakses dashboard:
+https://lookerstudio.google.com/reporting/d03aaa2d-02ac-4d48-9a65-4bd2ecf38875
 
 ## Conclusion
 

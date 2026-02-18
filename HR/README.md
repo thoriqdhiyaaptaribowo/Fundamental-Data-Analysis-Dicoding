@@ -53,10 +53,10 @@ pip install jupyterlab   # atau pip install notebook
 jupyter lab             # atau jupyter notebook
 ```
 
-4. Menjalankan skrip inference atau analisis:
+4. Menjalankan skrip prediction atau analisis:
 
 ```bash
-python inference.py
+python prediction.py
 # atau buka `notebook.ipynb` di Jupyter untuk eksplorasi interaktif
 ```
 

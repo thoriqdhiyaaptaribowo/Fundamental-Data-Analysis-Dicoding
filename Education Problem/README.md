@@ -65,8 +65,8 @@ Catatan:
 
 ## Business Dashboards
 
-Business dashboard memberi gambaran terkait faktor faktor yang memppengaruhi tingkat dropout siswa. Faktor faktor tersebut teridi dari Berikut merupakan link untuk mengakses dashboard:
-https://lookerstudio.google.com/reporting/d03aaa2d-02ac-4d48-9a65-4bd2ecf38875
+Business dashboard memberi gambaran terkait faktor faktor yang memppengaruhi tingkat dropout siswa. Faktor faktor tersebut teridi dari Course yang diambil, status nikah, jadwal pagi atau sore, status displaced, kebutuhan akademik khusus, status hutang, status keterlambatan SPP, dan status kebeasiswaan. Berikut merupakan link untuk mengakses dashboard:
+https://lookerstudio.google.com/reporting/17130a83-9567-49b7-bc65-8bf7b604ff0a
 
 ## Conclusion
 

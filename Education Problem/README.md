@@ -77,6 +77,7 @@ streamlit run "Education Problem/app.py"
 kemudian akses http://localhost:8501 untuk membuka app di browser
 
 Atau jalankan sistem dengan menggunakan streamlit cloud melalui link berikut:
+https://thoriqdhiyaaptaribowo-fundamental-da-educationproblemapp-jseegt.streamlit.app/
 
 
 Cara penggunakan app:

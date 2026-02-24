@@ -68,6 +68,23 @@ Catatan:
 Business dashboard memberi gambaran terkait faktor faktor yang memppengaruhi tingkat dropout siswa. Faktor faktor tersebut teridi dari Course yang diambil, status nikah, jadwal pagi atau sore, status displaced, kebutuhan akademik khusus, status hutang, status keterlambatan SPP, dan status kebeasiswaan. Berikut merupakan link untuk mengakses dashboard:
 https://lookerstudio.google.com/reporting/17130a83-9567-49b7-bc65-8bf7b604ff0a
 
+## Menjalankan Sistem Machine Learning
+Untuk menggunakan Sistem machine learning secara lokal, install streamlit dan jalankan app dengan program berikut
+```
+pip install streamlit
+streamlit run "Education Problem/app.py"
+```
+kemudian akses http://localhost:8501 untuk membuka app di browser
+
+Atau jalankan sistem dengan menggunakan streamlit cloud melalui link berikut:
+
+
+Cara penggunakan app:
+- Gunakan tombol “Upload CSV” untuk mengunggah file CSV berisi kolom-kolom fitur.
+- Centang “Use sample CSV” jika file sample.csv ada di folder Education Problem.
+- Tekan “Run predictions” untuk memproses dan menampilkan hasil.
+- Gunakan tombol “Download predictions as CSV” untuk mengunduh hasil.
+
 ## Conclusion
 
 - **Ringkasan:** Analisis eksploratori dan pemodelan menunjukkan faktor yang dapat memprediksi status siswa (`Graduate`, `Dropout`, `Enrolled`).
@@ -76,13 +93,10 @@ https://lookerstudio.google.com/reporting/17130a83-9567-49b7-bc65-8bf7b604ff0a
 
 ### Rekomendasi Action Items
 
-- **Deteksi dini:** Implementasikan sistem early-warning yang memakai model untuk menandai siswa berisiko tinggi sehingga dapat ditangani lebih awal.
 - **Intervensi akademik:** Sediakan program remedial dan bimbingan bagi siswa dengan `Admission_grade` rendah atau tanda penurunan performa akademik.
 - **Bantuan finansial:** Perluas akses beasiswa dan skema pembayaran fleksibel untuk siswa yang terlambat membayar `Tuition_fees_up_to_date`.
 - **Dukungan kebutuhan khusus:** Sediakan pendampingan dan layanan khusus untuk siswa dengan `Educational_special_needs`.
 - **Monitoring pembayaran:** Buat notifikasi otomatis dan alur penagihan proaktif untuk mencegah dropout terkait biaya.
-- **Validasi & iterasi model:** Lakukan cross-validation, evaluasi pada data baru, dan retrain model secara berkala untuk menjaga akurasi.
-- **Integrasi dashboard:** Masukkan metrik kunci dan prediksi risiko ke dashboard bisnis untuk pemantauan dan tindakan operasional.
 - **Ukur dampak:** Jalankan pilot terukur (mis. A/B test) untuk mengukur efektivitas intervensi sebelum skala penuh.
 
 Catatan: Semua rekomendasi sebaiknya didukung dengan data tambahan dan pengukuran dampak setelah implementasi.

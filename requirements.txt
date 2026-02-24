@@ -1,7 +1,6 @@
+streamlit>=1.52.0
 joblib
 matplotlib
 numpy
 pandas
 seaborn
-streamlit
-altair<5

@@ -65,8 +65,7 @@ def get_model_info() -> Dict:
 
 st.set_page_config(page_title="Attrition Prediction", layout="wide")
 
-st.title("Employee Attrition Prediction")
-st.write("Use this app to run batch predictions from a CSV and download results.")
+st.title("Student Dropout Prediction")
 
 col1, col2 = st.columns([3, 1])
 
